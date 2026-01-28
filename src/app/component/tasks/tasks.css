@@ -917,3 +917,86 @@
 .btn-sm:hover {
   opacity: 0.9;
 }
+
+
+/* מכולת הטופס - מוודאת שהכל מסודר בטור */
+.task-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* ריווח קבוע בין השדות */
+  padding: 16px;
+  background-color: #fcfcfc;
+  border-radius: 12px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* הגדרות מצב כהה */
+.dark-mode .task-edit-form {
+  background-color: #1e293b;
+}
+
+/* עיצוב אחיד לכל השדות (Input, Textarea, Select) */
+.form-input-sm {
+  width: 100% !important; /* מבטל השפעות חיצוניות */
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-sizing: border-box; /* קריטי למניעת חריגה מהרוחב */
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+.dark-mode .form-input-sm {
+  background-color: #0f172a;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+/* אפקט פוקוס - כשלוחצים על שדה */
+.form-input-sm:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* אזור הכפתורים - יישור לימין */
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+/* כפתורי שמירה וביטול */
+.btn-sm {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.btn-sm:active {
+  transform: scale(0.95);
+}
+
+.save-btn {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* מניעת שינוי גודל ידני של הטקסטאריאה שיכול לשבור את העיצוב */
+textarea.form-input-sm {
+  resize: vertical;
+  min-height: 80px;
+}

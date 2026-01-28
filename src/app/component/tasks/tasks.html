@@ -145,7 +145,7 @@
           </div>
 
           <!-- Edit Mode -->
-          <div *ngIf="editingTaskId === task.id" class="task-edit-form">
+          <div *ngIf="editingTaskId === task.id" class="task-edit-form" (click)="$event.stopPropagation()">
             <input 
               type="text"
               [(ngModel)]="task.title" 
