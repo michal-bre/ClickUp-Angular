@@ -1,0 +1,147 @@
+<div class="projects-container" [class.dark-mode]="isDarkMode">
+  <div class="projects-header">
+    <div class="header-content">
+      <h1>Projects</h1>
+      <p class="subtitle">Manage your projects and tasks</p>
+    </div>
+
+    <div class="header-controls">
+      <div class="filter-section">
+        <label class="filter-label">Filter by Team:</label>
+        <select [(ngModel)]="selectedTeamId" (change)="onFilterChange()" class="filter-select">
+          <option value="">All Teams</option>
+          <option *ngFor="let team of teams" [value]="team.id || team._id">{{ team.name }}</option>
+        </select>
+      </div>
+      <button *ngIf="selectedTeamId" class="btn-create-project" (click)="openCreateProjectModal()">+ Create Project</button>
+    </div>
+  </div>
+
+  <button class="btn-toggle-theme" (click)="toggleDarkMode()" title="Toggle dark mode">
+    <!-- Moon icon for light mode -->
+    <svg *ngIf="!isDarkMode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+    <!-- Sun icon for dark mode -->
+    <svg *ngIf="isDarkMode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </button>
+
+  <div class="selected-team" *ngIf="selectedTeamId">
+    <span class="team-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      Viewing: {{ getSelectedTeamName() }}
+    </span>
+  </div>
+
+  <div class="loader" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading projects...</p>
+  </div>
+
+  <div class="projects-grid" *ngIf="!isLoading && filteredProjects.length > 0">
+    <div class="project-card" *ngFor="let project of filteredProjects">
+      <div class="project-header">
+        <div class="project-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <h3 class="project-name">{{ project.name }}</h3>
+      </div>
+
+      <div class="project-meta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+        </svg>
+        <span class="project-team">{{ getTeamNameForProject(project.teamId) }}</span>
+      </div>
+
+      <div class="project-action">
+        <button class="btn-view-board" (click)="goToTasks(project.id || project._id)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg> View Board
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && filteredProjects.length === 0">
+    <div class="empty-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="64" height="64">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+        <path d="M16 3h-3V2h-2v1H8"></path>
+        <line x1="2" y1="11" x2="22" y2="11"></line>
+      </svg>
+    </div>
+    <h3>No projects found</h3>
+    <p *ngIf="selectedTeamId">Create a new project for the selected team</p>
+    <p *ngIf="!selectedTeamId">Select a team or create a new project to get started</p>
+    <button class="btn-primary" (click)="openCreateProjectModal()">Create First Project</button>
+  </div>
+
+  <!-- Create Project Modal -->
+  <div class="modal-overlay" *ngIf="showCreateProjectModal" (click)="closeCreateProjectModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Create New Project</h2>
+        <button class="modal-close" (click)="closeCreateProjectModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Project Name</label>
+          <input 
+            type="text" 
+            [(ngModel)]="newProjectName" 
+            placeholder="Enter project name..." 
+            class="form-input"
+            (keyup.enter)="createProject()">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Select Team</label>
+          <select [(ngModel)]="modalTeamId" class="form-input">
+            <option value="">Choose a team...</option>
+            <option *ngFor="let team of teams" [value]="team.id || team._id">
+              {{ team.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-info" *ngIf="modalTeamId">
+          <strong>✓</strong> Project will be added to: <strong>{{ getModalTeamName() }}</strong>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeCreateProjectModal()">Cancel</button>
+        <button 
+          class="btn-primary" 
+          [disabled]="!newProjectName.trim() || isCreatingProject || !selectedTeamId" 
+          (click)="createProject()">
+          {{ isCreatingProject ? 'Creating...' : 'Create Project' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

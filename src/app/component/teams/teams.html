@@ -1,0 +1,144 @@
+<div class="teams-container" [class.dark-mode]="isDarkMode">
+  <div class="teams-header">
+    <div class="header-content">
+      <h1>My Teams</h1>
+      <p class="subtitle">Manage and collaborate with your teams</p>
+    </div>
+    <button class="btn-create-team" (click)="showCreateModal = true">+ Create Team</button>
+  </div>
+
+  <button class="btn-toggle-theme" (click)="toggleDarkMode()" title="Toggle dark mode">
+    <!-- Moon icon for light mode -->
+    <svg *ngIf="!isDarkMode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+    <!-- Sun icon for dark mode -->
+    <svg *ngIf="isDarkMode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </button>
+
+
+  <div class="loader" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading teams...</p>
+  </div>
+
+  <div class="teams-grid" *ngIf="!isLoading && teams.length > 0">
+    <div class="team-card" *ngFor="let team of teams">
+      <div class="team-card-header">
+        <div class="team-avatar">{{ team.name.charAt(0).toUpperCase() }}</div>
+        <h3 class="team-name">{{ team.name }}</h3>
+      </div>
+
+      <div class="team-info">
+        <div class="info-item">
+          <span class="info-label">Members</span>
+          <span class="info-value">{{ team.members_count || team.memberCount || team.members?.length || 0 }}</span>
+        </div>
+      </div>
+
+      <div class="team-actions">
+        <button class="btn-secondary" (click)="viewProject(team.id)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg> View Projects
+        </button>
+        <button class="btn-add-member" (click)="openAddMemberModal(team.id)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg> Add Member
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!isLoading && teams.length === 0">
+    <div class="empty-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="64" height="64">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+    </div>
+    <h3>No teams yet</h3>
+    <p>Create your first team to get started</p>
+    <button class="btn-primary" (click)="showCreateModal = true">Create Your First Team</button>
+  </div>
+
+  <!-- Create Team Modal -->
+  <div class="modal-overlay" *ngIf="showCreateModal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Create New Team</h2>
+        <button class="modal-close" (click)="closeModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Team Name</label>
+          <input 
+            type="text" 
+            [(ngModel)]="newTeamName" 
+            placeholder="Enter team name..." 
+            class="form-input"
+            (keyup.enter)="onCreateTeam()">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeModal()">Cancel</button>
+        <button class="btn-primary" [disabled]="!newTeamName.trim()" (click)="onCreateTeam()">
+          Create Team
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Member Modal -->
+  <div class="modal-overlay" *ngIf="showAddMemberModal" (click)="closeAddMemberModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Add Member to Team</h2>
+        <button class="modal-close" (click)="closeAddMemberModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Member User ID</label>
+          <input 
+            type="text" 
+            [(ngModel)]="memberUserId" 
+            placeholder="Enter member user ID..." 
+            class="form-input"
+            (keyup.enter)="addMember()">
+          <p class="form-hint">Ask the user for their User ID</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeAddMemberModal()">Cancel</button>
+        <button 
+          class="btn-primary" 
+          [disabled]="!memberUserId.trim() || isAddingMember" 
+          (click)="addMember()">
+          {{ isAddingMember ? 'Adding Member...' : 'Add Member' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,81 @@
+<div class="sidebar" [class.collapsed]="!isExpanded" [class.dark-mode]="isDarkMode">
+  <!-- Logout Toast -->
+  <div class="logout-toast" [class.show]="showLogoutToast">
+    <span>Logging out...</span>
+  </div>
+
+  <!-- Toggle Button -->
+  <button class="toggle-btn" (click)="toggleSidebar()" title="Toggle Sidebar">
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" *ngIf="!isExpanded">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+    <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" *ngIf="isExpanded">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+
+  <!-- App Logo & Name -->
+  <div class="app-header">
+    <div class="app-logo">✓</div>
+    <div class="app-name" *ngIf="isExpanded">ClickUp</div>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- Navigation Menu -->
+  <nav class="menu">
+    <div class="menu-section">
+      <button class="menu-item" [class.active]="currentRoute === '/teams'" (click)="navigate('/teams')" title="Teams">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        <span class="menu-label" *ngIf="isExpanded">Teams</span>
+      </button>
+
+      <button class="menu-item" [class.active]="currentRoute === '/projects'" (click)="navigate('/projects')" title="Projects">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span class="menu-label" *ngIf="isExpanded">Projects</span>
+      </button>
+
+      <button class="menu-item" [class.active]="currentRoute === '/tasks'" (click)="navigate('/tasks')" title="Tasks">
+        <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 11 12 14 22 4"></polyline>
+          <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path>
+        </svg>
+        <span class="menu-label" *ngIf="isExpanded">Tasks</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Spacer -->
+  <div class="spacer"></div>
+
+  <!-- Divider -->
+  <div class="divider"></div>
+
+  <!-- User Profile Section -->
+  <div class="user-profile">
+    <div class="user-avatar">{{ getInitials() }}</div>
+    <div class="user-info" *ngIf="isExpanded">
+      <h3 class="user-name">{{ userName }}</h3>
+      <p class="user-role">User</p>
+    </div>
+  </div>
+
+  <!-- Logout Button -->
+  <button class="logout-btn" (click)="logout()" title="Logout">
+    <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+      <polyline points="16 17 21 12 16 7"></polyline>
+      <line x1="21" y1="12" x2="9" y2="12"></line>
+    </svg>
+    <span class="menu-label" *ngIf="isExpanded">Logout</span>
+  </button>
+</div>

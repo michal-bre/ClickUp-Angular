@@ -1,0 +1,140 @@
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  pointer-events: auto;
+}
+
+.toast {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: slideIn 0.3s ease-out;
+  pointer-events: auto;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  gap: 12px;
+}
+
+.toast-message {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+  flex: 1;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.toast-close:hover {
+  color: #6b7280;
+}
+
+.toast-progress {
+  height: 3px;
+  background: linear-gradient(90deg, currentColor, currentColor);
+  animation: progress linear forwards;
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+
+/* Success Toast */
+.toast-success {
+  border-left: 4px solid #10b981;
+}
+
+.toast-success .toast-message {
+  color: #059669;
+}
+
+.toast-success .toast-progress {
+  background: #10b981;
+}
+
+/* Error Toast */
+.toast-error {
+  border-left: 4px solid #ef4444;
+}
+
+.toast-error .toast-message {
+  color: #dc2626;
+}
+
+.toast-error .toast-progress {
+  background: #ef4444;
+}
+
+/* Info Toast */
+.toast-info {
+  border-left: 4px solid #3b82f6;
+}
+
+.toast-info .toast-message {
+  color: #1d4ed8;
+}
+
+.toast-info .toast-progress {
+  background: #3b82f6;
+}
+
+/* Warning Toast */
+.toast-warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.toast-warning .toast-message {
+  color: #b45309;
+}
+
+.toast-warning .toast-progress {
+  background: #f59e0b;
+}
+
+@media (max-width: 640px) {
+  .toast-container {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: calc(100% - 20px);
+  }
+}

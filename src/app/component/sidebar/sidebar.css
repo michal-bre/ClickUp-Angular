@@ -1,0 +1,374 @@
+/* ===== Root Sidebar ===== */
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  position: fixed;
+  left: 0;
+  top: 0;
+  font-family: 'Inter', sans-serif;
+  z-index: 1000;
+  overflow: visible;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+/* ===== Toggle Button ===== */
+.toggle-btn {
+  position: absolute;
+  top: 16px;
+  right: -14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.toggle-icon {
+  width: 16px;
+  height: 16px;
+  color: #374151;
+}
+
+/* ===== App Header ===== */
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+}
+
+.app-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ===== Divider ===== */
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 12px 0;
+}
+
+/* ===== Menu ===== */
+.menu {
+  padding: 8px;
+}
+
+.menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #374151;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.menu-item:hover {
+  background: #f3f4f6;
+}
+
+.menu-item.active {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.menu-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.menu-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ===== Spacer ===== */
+.spacer {
+  flex-grow: 1;
+}
+
+/* ===== User Profile ===== */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4338ca;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: #111827;
+}
+
+.user-role {
+  font-size: 12px;
+  margin: 0;
+  color: #6b7280;
+}
+
+/* ===== Logout Button ===== */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #b91c1c;
+  border-radius: 10px;
+  margin: 8px;
+}
+
+.logout-btn:hover {
+  background: #fee2e2;
+}
+
+/* ===== Logout Toast ===== */
+.logout-toast {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: #111827;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.logout-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===== DARK MODE STYLES ===== */
+.sidebar.dark-mode {
+  background: #1f2937;
+  border-right: 1px solid #374151;
+  color: #f3f4f6;
+}
+
+.sidebar.dark-mode .toggle-btn {
+  background: #111827;
+  border: 1px solid #374151;
+}
+
+.sidebar.dark-mode .toggle-btn:hover {
+  background: #0f172a;
+  border-color: #6366f1;
+}
+
+.sidebar.dark-mode .toggle-icon {
+  color: #9ca3af;
+}
+
+/* App Header */
+.sidebar.dark-mode .app-header {
+  border-bottom: 1px solid #374151;
+}
+
+.sidebar.dark-mode .app-logo {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar.dark-mode .app-name {
+  color: #f3f4f6;
+  font-weight: 700;
+}
+
+/* Divider */
+.sidebar.dark-mode .divider {
+  background: #374151;
+}
+
+/* Menu & Navigation */
+.sidebar.dark-mode .menu {
+  padding: 8px;
+}
+
+.sidebar.dark-mode .menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar.dark-mode .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.sidebar.dark-mode .menu-item:hover {
+  background: #374151;
+  color: #d1d5db;
+}
+
+.sidebar.dark-mode .menu-item.active {
+  background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.sidebar.dark-mode .menu-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: inherit;
+  stroke: currentColor;
+}
+
+.sidebar.dark-mode .menu-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: inherit;
+}
+
+/* Spacer */
+.sidebar.dark-mode .spacer {
+  flex-grow: 1;
+}
+
+/* User Profile Section */
+.sidebar.dark-mode .user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-top: 1px solid #374151;
+  background: #111827;
+}
+
+.sidebar.dark-mode .user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar.dark-mode .user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar.dark-mode .user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f3f4f6;
+}
+
+.sidebar.dark-mode .user-email {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Logout Button */
+.sidebar.dark-mode .logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 80%;
+  padding: 12px 16px;
+  border: none;
+  background: #374151;
+  color: #f3f4f6;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sidebar.dark-mode .logout-btn:hover {
+  background: #4b5563;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar.dark-mode .logout-icon {
+  width: 18px;
+  height: 18px;
+  color: #f3f4f6;
+  stroke: currentColor;
+}
