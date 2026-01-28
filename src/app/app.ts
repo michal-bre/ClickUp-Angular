@@ -17,7 +17,6 @@ export class App {
 
   constructor(private router: Router) {
     this.router.events.subscribe(() => {
-      // הסתר sidebar בדף auth
       const currentRoute = this.router.url;
       this.showSidebar = !currentRoute.includes('/auth') && !currentRoute.includes('/login') && !currentRoute.includes('/register');
     });

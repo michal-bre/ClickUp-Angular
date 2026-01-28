@@ -19,5 +19,5 @@ export const routes: Routes = [
   { path: 'tasks/:projectId', component: TasksComponent, canActivate: [authGuard] },
   { path: 'task-details/:taskId', component: TaskDetailsComponent, canActivate: [authGuard] },
   { path: 'task-details', component: TaskDetailsComponent, canActivate: [authGuard] },
-  { path: '**', redirectTo: 'login' } // כל נתיב אחר יוסט ללוגין
+  { path: '**', redirectTo: 'login' } 
 ];

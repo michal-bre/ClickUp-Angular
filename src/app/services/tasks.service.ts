@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Task } from '../models/task-manager.models';
+import { environment } from '../../environment.prod';
 
 @Injectable({ providedIn: 'root' })
 export class TasksService {
-  private apiUrl = 'http://localhost:3000/api/tasks';
-  private commentsUrl = 'http://localhost:3000/api/comments';
+  private apiUrl = environment.apiUrl+'/api/tasks';
+  private commentsUrl = environment.apiUrl+'/api/comments';
   
   private selectedTask: Task | null = null;
 
