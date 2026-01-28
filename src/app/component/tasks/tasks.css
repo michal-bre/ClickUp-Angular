@@ -855,3 +855,65 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
   background: #273549;
 }
+
+/* מיכל הטופס הראשי */
+.task-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* ריווח בין השדות */
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05); /* רקע עדין כדי להבדיל מהכרטיסייה */
+  border-radius: 8px;
+}
+
+/* הגדרות אחידות לכל הקלטים (Input, Textarea, Select) */
+.form-input-sm {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  box-sizing: border-box; /* מבטיח שהפדינג לא יחרוג מהרוחב */
+}
+
+/* התאמה למצב כהה במידה ויש */
+.dark-mode .form-input-sm {
+  background-color: #2d2d2d;
+  border-color: #444;
+  color: #eee;
+}
+
+/* אזור הכפתורים */
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+/* עיצוב כפתורי שמירה וביטול */
+.btn-sm {
+  padding: 6px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: opacity 0.2s;
+}
+
+.save-btn {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-sm:hover {
+  opacity: 0.9;
+}
