@@ -6,7 +6,7 @@ export class AuthGuardService {
   constructor(private router: Router) {}
 
   canActivate: CanActivateFn = (route, state) => {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token) {
       return true;
     } else {
@@ -17,7 +17,7 @@ export class AuthGuardService {
 }
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   if (token) {
     return true;
   } else {

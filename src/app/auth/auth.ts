@@ -28,19 +28,19 @@ export class AuthService {
 
   // שמירת ה-Token והמשתמש בדפדפן
   private setSession(authResult: AuthResponse) {
-    localStorage.setItem('token', authResult.token);
-    localStorage.setItem('user', JSON.stringify(authResult.user));
+    sessionStorage.setItem('token', authResult.token);
+    sessionStorage.setItem('user', JSON.stringify(authResult.user));
   }
 
   // התנתקות
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
   }
 
   // שליפת ה-Token לצורך ה-Interceptor
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   // בדיקה אם המשתמש מחובר

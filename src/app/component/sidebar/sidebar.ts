@@ -51,7 +51,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   loadUserInfo() {
-    const userData = localStorage.getItem('user');
+    const userData = sessionStorage.getItem('user');
     if (userData) {
       try {
         const user = JSON.parse(userData);
@@ -75,8 +75,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   logout() {
     this.showLogoutToast = true;
     setTimeout(() => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
       this.router.navigate(['/auth']);
     }, 800);
   }

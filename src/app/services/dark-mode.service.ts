@@ -16,7 +16,7 @@ export class DarkModeService {
   }
 
   private getSavedDarkMode(): boolean {
-    const saved = localStorage.getItem(this.STORAGE_KEY);
+    const saved = sessionStorage.getItem(this.STORAGE_KEY);
     return saved ? JSON.parse(saved) : false;
   }
 
@@ -27,11 +27,11 @@ export class DarkModeService {
   toggleDarkMode(): void {
     const newValue = !this.darkModeSubject.value;
     this.darkModeSubject.next(newValue);
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(newValue));
+    sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(newValue));
   }
 
   setDarkMode(isDark: boolean): void {
     this.darkModeSubject.next(isDark);
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(isDark));
+    sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(isDark));
   }
 }
